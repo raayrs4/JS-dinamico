@@ -1,24 +1,39 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+// casting (AS):
+const campoNome = document.getElementById("campoNome") as HTMLInputElement;
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// Query selector (generics - input element):
+const campoEmail= document.querySelector<HTMLInputElement>("#campoEmail")
+
+// Query selector (generics - element):
+const paragrafo = document.querySelector(".minhaSessao p")
+const campoConcorda = document.querySelector<HTMLInputElement>("#campoConcorda");
+const form = document.querySelector("form");
+
+if(campoNome && paragrafo) {
+  campoNome.onblur = function() {
+    const valorDigitado = campoNome.value
+    paragrafo.textContent = "Olá, " + valorDigitado;
+  }
+}
+
+if(campoEmail) {
+  campoEmail.onblur = function() {
+    const valorDigitado = campoEmail.value
+
+    if(!valorDigitado.includes('@')){
+      alert("Insira um e-mail válido")
+    } else {
+      console.log(valorDigitado)
+    }
+  }
+}
+
+if (form) {
+  form.onsubmit = function() {
+    if (campoConcorda && !campoConcorda.checked) {
+      alert("Você deve concordar com os termos e condições.");
+    }
+  };
+}
+
